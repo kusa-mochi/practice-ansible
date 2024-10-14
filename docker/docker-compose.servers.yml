@@ -1,0 +1,43 @@
+services:
+  testserver1:
+    image: whoatemyapplepie/ansible-testserver:1.0.0
+    build:
+      context: dockerfile_testserver
+    tty: true
+    container_name: sv1
+    environment:
+      - TESTTOKEN=${TOKEN1}
+    networks:
+      testnet:
+        ipv4_address: 192.168.10.101
+  testserver2:
+    image: whoatemyapplepie/ansible-testserver:1.0.0
+    build:
+      context: dockerfile_testserver
+    tty: true
+    container_name: sv2
+    environment:
+      - TESTTOKEN=${TOKEN2}
+    networks:
+      testnet:
+        ipv4_address: 192.168.10.102
+  testserver3:
+    image: whoatemyapplepie/ansible-testserver:1.0.0
+    build:
+      context: dockerfile_testserver
+    tty: true
+    container_name: sv3
+    environment:
+      - TESTTOKEN=${TOKEN3}
+    networks:
+      testnet:
+        ipv4_address: 192.168.10.103
+
+networks:
+  testnet:
+    name: testnet
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.10.0/24
